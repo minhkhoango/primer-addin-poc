@@ -12,14 +12,14 @@ export interface AnalysisResult {
 }
 
 // This function simulates a network call to the Primer backend.
-export const getAnalysis = async (query: string): Promise<AnalysisResult> => {
+export const getMockAnalysis = async (query: string): Promise<AnalysisResult> => {
   console.log(`Mock API called with query: "${query}"`);
 
   // Simulate a 2-second network delay. Don't make it instant.
   // The delay is part of the user experience; it makes the result feel earned.
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  // In a real app, you might have different canned responses based on the query.
+  // In a real app, you might have different canned respoSnses based on the query.
   // For this MVP, one realistic, hardcoded response is all we need.
   const mockResult: AnalysisResult = {
     summary:

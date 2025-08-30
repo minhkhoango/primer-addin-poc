@@ -5,10 +5,13 @@ import QueryInput from "./QueryInput";
 import ResultsDisplay from "./ResultsDisplay";
 import InsertButton from "./InsertButton";
 import Spinner from "./Spinner";
-import { getAnalysis } from "../../api/mockApi";
+import { getMockAnalysis } from "../../api/mockApi";
+import { getRealAnalysis } from "../../api/primerApi";
 import type { AnalysisResult } from "../../api/mockApi";
 
 /* global Word, Office */
+// This flag is the "blueprint toggle". For the demo, it's ALWAYS false.
+const USE_REAL_API = false;
 
 const App: React.FC = () => {
   // --- STATE MANAGEMENT ---
@@ -26,7 +29,12 @@ const App: React.FC = () => {
     setResults(null); // Clear previous results
 
     try {
-      const analysisResults = await getAnalysis(query);
+      let analysisResults: AnalysisResult;
+      if (USE_REAL_API) {
+        analysisResults = await getRealAnalysis(query);
+      } else {
+        analysisResults = await getMockAnalysis(query);
+      }
       setResults(analysisResults);
     } catch (e) {
       // Basic error handling. Good enough for the MVP.
