@@ -1,0 +1,84 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Office Add-in manifest output
+*.office-addin*
+
+# Webpack output
+webpack-stats.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment files
+.env
+.env.*
+
+# Coverage
+coverage/
+
+# Misc
+*.log
+*.tmp
+*.bak
+
+# Ignore package-lock and yarn lock if not using them
+# package-lock.json
+yarn.lock
+
+# Ignore test output
+junit.xml
+
+# Ignore local Office Add-in sideload files
+~$*.docx
+~$*.xlsx
+~$*.pptx
+
+# Ignore Mac system files
+Icon?
+
+# Ignore output from Tailwind or PostCSS
+*.css.map
+
+# Ignore output from TypeScript
+*.tsbuildinfo
+
+# Ignore output from Babel
+*.babelrc.js
+
+# Ignore output from npm
+.npm/
+
+# Ignore output from Jest
+jest-test-results.json
+
+# Ignore output from Prettier
+.prettier*
+
+# Ignore output from ESLint
+.eslint*
+
+# Ignore output from coverage tools
+.nyc_output/
+
+# Ignore output from Storybook
+storybook-static/
