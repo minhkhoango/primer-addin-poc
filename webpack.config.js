@@ -10,7 +10,13 @@ const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DE
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
-  return { ca: httpsOptions.ca, key: httpsOptions.key, cert: httpsOptions.cert };
+  return { 
+    ca: httpsOptions.ca, 
+    key: httpsOptions.key, 
+    cert: httpsOptions.cert,
+    requestCert: false,
+    rejectUnauthorized: false
+  };
 }
 
 module.exports = async (env, options) => {
@@ -24,7 +30,6 @@ module.exports = async (env, options) => {
         import: ["./src/taskpane/index.tsx", "./src/taskpane/taskpane.html"],
         dependOn: "react",
       },
-      commands: "./src/commands/commands.ts",
     },
     output: {
       clean: true,
@@ -89,11 +94,6 @@ module.exports = async (env, options) => {
           },
         ],
       }),
-      new HtmlWebpackPlugin({
-        filename: "commands.html",
-        template: "./src/commands/commands.html",
-        chunks: ["polyfill", "commands"],
-      }),
       new webpack.ProvidePlugin({
         Promise: ["es6-promise", "Promise"],
       }),
@@ -102,7 +102,10 @@ module.exports = async (env, options) => {
       hot: true,
       headers: {
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+        "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
       },
+      allowedHosts: "all",
       server: {
         type: "https",
         options: env.WEBPACK_BUILD || options.https !== undefined ? options.https : await getHttpsOptions(),
