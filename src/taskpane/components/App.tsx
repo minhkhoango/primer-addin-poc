@@ -1,45 +1,32 @@
+// src/taskpane/components/App.tsx
 import * as React from "react";
 import Header from "./Header";
-import HeroList, { HeroListItem } from "./HeroList";
-import TextInsertion from "./TextInsertion";
-import { makeStyles } from "@fluentui/react-components";
-import { Ribbon24Regular, LockOpen24Regular, DesignIdeas24Regular } from "@fluentui/react-icons";
-import { insertText } from "../taskpane";
+import QueryInput from "./QueryInput";
+import ResultsDisplay from "./ResultsDisplay";
+import InsertButton from "./InsertButton";
+import Spinner from "./Spinner";
+
+/* global Word */
 
 interface AppProps {
   title: string;
 }
 
-const useStyles = makeStyles({
-  root: {
-    minHeight: "100vh",
-  },
-});
-
-const App: React.FC<AppProps> = (props: AppProps) => {
-  const styles = useStyles();
-  // The list items are static and won't change at runtime,
-  // so this should be an ordinary const, not a part of state.
-  const listItems: HeroListItem[] = [
-    {
-      icon: <Ribbon24Regular />,
-      primaryText: "Achieve more with Office integration",
-    },
-    {
-      icon: <LockOpen24Regular />,
-      primaryText: "Unlock features and functionality",
-    },
-    {
-      icon: <DesignIdeas24Regular />,
-      primaryText: "Create and visualize like a pro",
-    },
-  ];
+const App: React.FC<AppProps> = () => {
+  // In Phase 1, the spinner is always hidden.
+  // We'll wire this up to real state in Phase 2.
+  const isSpinnerVisible: boolean = false;
 
   return (
-    <div className={`${styles.root} bg-gray-50 p-4`}>
-      <Header logo="assets/logo-filled.png" title={props.title} message="Welcome" />
-      <HeroList message="Discover what this add-in can do for you today!" items={listItems} />
-      <TextInsertion insertText={insertText} />
+    <div className="p-4 relative">
+      <Header />
+      <main>
+        <QueryInput />
+        {/* In a real app, ResultsDisplay and InsertButton would be conditional */}
+        <ResultsDisplay />
+        <InsertButton />
+      </main>
+      <Spinner isVisible={isSpinnerVisible} />
     </div>
   );
 };
